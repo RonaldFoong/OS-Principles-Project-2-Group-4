@@ -8,6 +8,7 @@ typedef struct {
 
 typedef struct alloc_node_t {
     struct alloc_node_t *next;
+    struct alloc_node_t *prev;
     allocation_t *alloc;
 } alloc_node_t;
 
