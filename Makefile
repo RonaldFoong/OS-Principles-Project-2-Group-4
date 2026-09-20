@@ -14,11 +14,11 @@ QUICKFIT_BIN = $(BIN_DIR)/quickfit
 
 all: directories $(FIRSTFIT_BIN) $(BESTFIT_BIN) $(QUICKFIT_BIN)
 
-directories: bin obj
-	mkdir -p bin obj
+directories: $(BIN_DIR) $(OJB_DIR)
+	mkdir -p $(BIN_DIR) $(OJB_DIR)
 
 clean:
-	rm -rf bin obj
+	rm -rf $(BIN_DIR) $(OJB_DIR)
 
 $(FIRSTFIT_BIN): directories $(FIRSTFIT_OBJS)
 	$(CC) $(CCFLAGS) -o $@ $(FIRSTFIT_OBJS) 
