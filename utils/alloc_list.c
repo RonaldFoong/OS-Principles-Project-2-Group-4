@@ -1,8 +1,13 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "alloc_list.h"
 
 void push(alloc_list_t *self, allocation_t *alloc) {
     alloc_node_t *node = malloc(sizeof(alloc_node_t));
+    if (node == NULL) {
+        fprintf(stderr, "Error: Failed to allocate memory");
+        exit(EXIT_FAILURE);
+    }
     node->next = NULL;
     node->alloc = alloc;
     if (self->tail == NULL) {
