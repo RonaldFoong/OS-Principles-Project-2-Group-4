@@ -26,21 +26,28 @@ void *alloc(size_t chunk_size) {
             return alloc->space;
         }
     }
+
     size_t size = chunk_size_of(chunk_size);
     if (size == 0) {
         return NULL;
     }
+
     void *space = sbrk(size);
     if (space == (void *)-1) {
         return NULL;
     }
+
     allocation_t *alloc = malloc(sizeof(allocation_t));
     if (alloc == NULL) {
         return NULL;
     }
+
     alloc->size = size;
     alloc->space = space;
-    push(&allocated_chunks, alloc);
+    if (!push(&allocated_chunks, alloc)) {
+        return NULL;
+    }
+    
     return space;
 }
 
