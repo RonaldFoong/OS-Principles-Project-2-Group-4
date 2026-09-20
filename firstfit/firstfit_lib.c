@@ -22,7 +22,9 @@ void *alloc(size_t chunk_size) {
 
             allocation_t *alloc = node->alloc;
             free(node);
-            push(&allocated_chunks, alloc);
+            if (!push(&allocated_chunks, alloc)) {
+                return NULL;
+            }
             return alloc->space;
         }
     }
@@ -47,7 +49,7 @@ void *alloc(size_t chunk_size) {
     if (!push(&allocated_chunks, alloc)) {
         return NULL;
     }
-    
+
     return space;
 }
 
