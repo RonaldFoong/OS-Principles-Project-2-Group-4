@@ -1,5 +1,5 @@
 CC = gcc
-CCFLAGS = -Werror -Wall -std=c99
+CCFLAGS = -Wall -std=c99
 
 BIN_DIR = bin
 OBJ_DIR = obj

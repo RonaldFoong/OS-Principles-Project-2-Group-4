@@ -7,7 +7,6 @@
 #include <stdio.h>
 #include "../utils/alloc_list.h"
 #include "../utils/chunk_size_of.h"
-#include "quickfit_lib.h"
 
 void *alloc(size_t chunk_size);
 void dealloc(void *chunk);

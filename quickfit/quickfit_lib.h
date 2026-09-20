@@ -7,7 +7,6 @@
 #include <stdio.h>
 #include "../utils/alloc_list.h"
 #include "../utils/chunk_size_of.h"
-#include "quickfit_lib.h"
 
 typedef enum {
     BYTES_32,

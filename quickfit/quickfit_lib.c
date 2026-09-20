@@ -79,7 +79,8 @@ void dealloc(void *chunk) {
 
             allocation_t *alloc = node->alloc;
             free(node);
-            if (!push(&free_chunks, alloc)) {
+            list_type_t list_type = get_list_type(alloc->size);
+            if (!push(&free_chunks[list_type], alloc)) {
                 fprintf(stderr, "Error: Could not deallocate chunk");
                 exit(EXIT_FAILURE);
             }

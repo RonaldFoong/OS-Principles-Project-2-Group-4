@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include "../utils/alloc_list.h"
 #include "../utils/chunk_size_of.h"
-#include "quickfit_lib.h"
+#include "bestfit_lib.h"
 
 alloc_list_t allocated_chunks;
 alloc_list_t free_chunks;
@@ -55,7 +55,7 @@ void *alloc(size_t chunk_size) {
         exit(EXIT_FAILURE);
     }
 
-    allocation_t *alloc = malloc(sizeof(allocation_t));
+    alloc = malloc(sizeof(allocation_t));
     if (alloc == NULL) {
         fprintf(stderr, "Error: Could not allocate memory");
         exit(EXIT_FAILURE);
