@@ -1,6 +1,9 @@
 #ifndef ALLOC_LIST_H
 #define ALLOC_LIST_H
 
+#include <stdlib.h>
+#include <stdbool.h>
+
 typedef struct {
     size_t size;
     void *space;
@@ -17,7 +20,7 @@ typedef struct {
     alloc_node_t *tail;
 } alloc_list_t;
 
-void push(alloc_list_t *self, allocation_t *alloc);
+bool push(alloc_list_t *self, allocation_t *alloc);
 allocation_t *pop(alloc_list_t *self);
 
 #endif
