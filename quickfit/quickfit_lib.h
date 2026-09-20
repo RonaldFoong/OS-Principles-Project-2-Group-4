@@ -5,6 +5,6 @@
 #include "../utils/alloc_list.h"
 
 void *alloc(size_t chunk_size);
-void *dealloc(void *chunk);
+void dealloc(void *chunk);
 
 #endif
