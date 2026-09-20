@@ -1,6 +1,9 @@
 #ifndef ALLOC_LIST_H
 #define ALLOC_LIST_H
 
+#include <stdlib.h>
+#include <stdbool.h>
+
 typedef struct {
     size_t size;
     void *space;
