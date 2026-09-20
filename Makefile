@@ -12,7 +12,7 @@ FIRSTFIT_BIN = $(BIN_DIR)/firstfit
 BESTFIT_BIN = $(BIN_DIR)/bestfit
 QUICKFIT_BIN = $(BIN_DIR)/quickfit
 
-all: directories bin/firstfit.o bin/bestfit.o bin/quickfit.o
+all: directories $(FIRSTFIT_BIN) $(BESTFIT_BIN) $(QUICKFIT_BIN)
 
 directories: bin obj
 	mkdir -p bin obj
