@@ -18,6 +18,6 @@ typedef struct {
 } alloc_list_t;
 
 void push(alloc_list_t *self, allocation_t *alloc);
-void pop(alloc_list_t *self, allocation_t *alloc);
+allocation_t *pop(alloc_list_t *self);
 
 #endif
