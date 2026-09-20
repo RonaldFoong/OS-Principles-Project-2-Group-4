@@ -4,9 +4,9 @@ CCFLAGS = -Werror -Wall -std=c99
 BIN_DIR = bin
 OBJ_DIR = obj
 
-FIRSTFIT_OBJS = $(OJB_DIR)/firstfit.o $(OJB_DIR)/memlib.o
-BESTFIT_OBJS = $(OJB_DIR)/bestfit.o $(OJB_DIR)/memlib.o
-QUICKFIT_OBJS = $(OJB_DIR)/quickfit.o $(OJB_DIR)/memlib.o
+FIRSTFIT_OBJS = $(OBJ_DIR)/firstfit.o $(OBJ_DIR)/memlib.o
+BESTFIT_OBJS = $(OBJ_DIR)/bestfit.o $(OBJ_DIR)/memlib.o
+QUICKFIT_OBJS = $(OBJ_DIR)/quickfit.o $(OBJ_DIR)/memlib.o
 
 FIRSTFIT_BIN = $(BIN_DIR)/firstfit
 BESTFIT_BIN = $(BIN_DIR)/bestfit
@@ -14,19 +14,19 @@ QUICKFIT_BIN = $(BIN_DIR)/quickfit
 
 all: directories $(FIRSTFIT_BIN) $(BESTFIT_BIN) $(QUICKFIT_BIN)
 
-directories: $(BIN_DIR) $(OJB_DIR)
-	mkdir -p $(BIN_DIR) $(OJB_DIR)
+directories:
+	mkdir -p $(BIN_DIR) $(OBJ_DIR)
 
 clean:
-	rm -rf $(BIN_DIR) $(OJB_DIR)
+	rm -rf $(BIN_DIR) $(OBJ_DIR)
 
-$(FIRSTFIT_BIN): directories $(FIRSTFIT_OBJS)
+$(FIRSTFIT_BIN): $(FIRSTFIT_OBJS)
 	$(CC) $(CCFLAGS) -o $@ $(FIRSTFIT_OBJS) 
 
-$(BESTFIT_BIN): directories $(BESTFIT_OBJS)
+$(BESTFIT_BIN): $(BESTFIT_OBJS)
 	$(CC) $(CCFLAGS) -o $@ $(BESTFIT_OBJS)
 
-$(QUICKFIT_BIN): directories $(QUICKFIT_OBJS)
+$(QUICKFIT_BIN): $(QUICKFIT_OBJS)
 	$(CC) $(CCFLAGS) -o $@ $(QUICKFIT_OBJS)
 
 $(OBJ_DIR)/%.o: %.c | directories
