@@ -8,6 +8,11 @@
 #include "../utils/alloc_list.h"
 #include "../utils/chunk_size_of.h"
 
+#define PARTITIONS 5
+
+alloc_list_t allocated_chunks;
+alloc_list_t free_chunks[PARTITIONS];
+
 typedef enum {
     BYTES_32,
     BYTES_64,

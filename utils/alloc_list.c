@@ -8,6 +8,7 @@ bool push(alloc_list_t *self, allocation_t *alloc) {
         return false;
     }
     node->next = NULL;
+    node->prev = self->tail;
     node->alloc = alloc;
     if (self->tail == NULL) {
         self->head = node;
