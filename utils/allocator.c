@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 
-#define BUFFER_SIZE 256
-#define STACK_SIZE 20
+#define BUFFER_SIZE 128
+#define STACK_SIZE 4096
 
 // alloc and dealloc implemented in the 3 main programs
 void *alloc(size_t chunk_size);
