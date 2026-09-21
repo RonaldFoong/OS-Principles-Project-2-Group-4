@@ -11,7 +11,7 @@ alloc_list_t free_chunks;
 
 void *alloc(size_t chunk_size) {
     for (alloc_node_t *node = free_chunks.head; node != NULL; node = node->next) {
-        if (node->alloc->size >= chunk_size) {
+        if (node->alloc->total_size >= chunk_size) {
             if (node->prev != NULL && node->next != NULL) {
                 node->prev->next = node->next;
                 node->next->prev = node->prev;
@@ -22,6 +22,7 @@ void *alloc(size_t chunk_size) {
             }
 
             allocation_t *alloc = node->alloc;
+            alloc->used_size = chunk_size;
             free(node);
             if (!push(&allocated_chunks, alloc)) {
                 fprintf(stderr, "Error: Could not allocate chunk");
@@ -32,13 +33,13 @@ void *alloc(size_t chunk_size) {
         }
     }
 
-    size_t size = chunk_size_of(chunk_size);
-    if (size == 0) {
+    size_t total_size = chunk_size_of(chunk_size);
+    if (total_size == 0) {
         fprintf(stderr, "Error: Chunk size is too large");
         exit(EXIT_FAILURE);
     }
 
-    void *space = sbrk(size);
+    void *space = sbrk(total_size);
     if (space == (void *)-1) {
         fprintf(stderr, "Error: Could not allocate chunk");
         exit(EXIT_FAILURE);
@@ -50,7 +51,8 @@ void *alloc(size_t chunk_size) {
         exit(EXIT_FAILURE);
     }
 
-    alloc->size = size;
+    alloc->total_size = total_size;
+    alloc->used_size = chunk_size;
     alloc->space = space;
     if (!push(&allocated_chunks, alloc)) {
         fprintf(stderr, "Error: Could not allocate chunk");
@@ -73,6 +75,7 @@ void dealloc(void *chunk) {
             }
 
             allocation_t *alloc = node->alloc;
+            alloc->used_size = 0;
             free(node);
             if (!push(&free_chunks, alloc)) {
                 fprintf(stderr, "Error: Could not deallocate chunk");
