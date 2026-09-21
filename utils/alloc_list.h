@@ -5,7 +5,8 @@
 #include <stdbool.h>
 
 typedef struct {
-    size_t size;
+    size_t total_size;
+    size_t used_size;
     void *space;
 } allocation_t;
 
