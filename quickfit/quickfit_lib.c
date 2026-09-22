@@ -2,8 +2,9 @@
 #include "../utils/alloc_list.h"
 #include "quickfit_lib.h"
 
-alloc_list_t allocated_chunks;
-alloc_list_t free_chunks[5];
+// Global Variables
+alloc_list_t allocated_list;
+alloc_list_t free_list[5];
 
 void *alloc(size_t chunk_size) {
 

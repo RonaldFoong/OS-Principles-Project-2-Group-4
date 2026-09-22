@@ -2,8 +2,9 @@
 #include "../utils/alloc_list.h"
 #include "bestfit_lib.h"
 
-alloc_list_t allocated_chunks;
-alloc_list_t free_chunks;
+// Global Variables
+alloc_list_t allocated_list;
+alloc_list_t free_list;
 
 void *alloc(size_t chunk_size) {
 
