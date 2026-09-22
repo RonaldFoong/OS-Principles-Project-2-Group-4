@@ -37,7 +37,8 @@ int main(int argc, char **argv) {
                 printf("\tBYTES_512: ");
                 break;
             case BYTES_LARGE:
-                break;
+                fprintf(stderr, "Error: Too many partition sizes");
+                return 1;
         }
         print_free_list_contents(&free_chunks[i]);
     }
