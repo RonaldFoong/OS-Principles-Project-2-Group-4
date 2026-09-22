@@ -36,3 +36,14 @@ allocation_t *pop(alloc_list_t *self) {
     free(node);
     return popped;
 }
+
+void alloc_list_destroy(alloc_list_t *self) {
+    alloc_node_t *node = self->head;
+    alloc_node_t *next = NULL;
+    while (node != NULL) {
+        free(node->alloc);
+        next = node->next;
+        free(node);
+        node = next;
+    }
+}
