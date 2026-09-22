@@ -44,7 +44,7 @@ int main(int argc, char **argv) {
 
     // Free memory
     alloc_list_destroy(&allocated_chunks);
-    for (list_type_t i = 0; i < PARTITIONS; i++) {
+    for (int i = 0; i < PARTITIONS; i++) {
         alloc_list_destroy(&free_chunks[i]);
     }
 
