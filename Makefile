@@ -1,5 +1,5 @@
 CC = gcc
-CCFLAGS = -Werror -Wall -std=c99
+CCFLAGS = -Wall -Werror -std=c99 -Wno-deprecated-declarations
 
 BIN_DIR = bin
 OBJ_DIR = obj
