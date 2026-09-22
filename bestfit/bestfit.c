@@ -13,17 +13,17 @@ int main(int argc, char **argv) {
     // Print lists
     // Allocated chunks list
     printf("Allocated Chunks List: ");
-    extern alloc_list_t allocated_chunks;
-    print_alloc_list_contents(&allocated_chunks);
+    extern alloc_list_t allocated_list;
+    print_alloc_list_contents(&allocated_list);
 
     // Free chunks list
     printf("Free Chunks List: ");
-    extern alloc_list_t free_chunks;
-    print_free_list_contents(&free_chunks);
+    extern alloc_list_t free_list;
+    print_free_list_contents(&free_list);
 
     // Free memory
-    alloc_list_destroy(&allocated_chunks);
-    alloc_list_destroy(&free_chunks);
+    alloc_list_destroy(&allocated_list);
+    alloc_list_destroy(&free_list);
 
     return 1;
 }

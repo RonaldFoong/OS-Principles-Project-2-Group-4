@@ -10,8 +10,8 @@
 
 #define PARTITIONS 5
 
-alloc_list_t allocated_chunks;
-alloc_list_t free_chunks[PARTITIONS];
+alloc_list_t allocated_list;
+alloc_list_t free_list[PARTITIONS];
 
 typedef enum {
     BYTES_32,

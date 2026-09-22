@@ -13,12 +13,12 @@ int main(int argc, char **argv) {
     // Print lists
     // Allocated chunks list
     printf("Allocated Chunks List: ");
-    extern alloc_list_t allocated_chunks;
-    print_alloc_list_contents(&allocated_chunks);
+    extern alloc_list_t allocated_list;
+    print_alloc_list_contents(&allocated_list);
 
     // Free chunks lists
     printf("Free Chunks Lists:\n");
-    extern alloc_list_t free_chunks[PARTITIONS];
+    extern alloc_list_t free_list[PARTITIONS];
     for (list_type_t i = 0; i < PARTITIONS; i++) {
         switch (i) {
             case BYTES_32:
@@ -40,13 +40,13 @@ int main(int argc, char **argv) {
                 fprintf(stderr, "Error: Too many partition sizes");
                 return 1;
         }
-        print_free_list_contents(&free_chunks[i]);
+        print_free_list_contents(&free_list[i]);
     }
 
     // Free memory
-    alloc_list_destroy(&allocated_chunks);
+    alloc_list_destroy(&allocated_list);
     for (int i = 0; i < PARTITIONS; i++) {
-        alloc_list_destroy(&free_chunks[i]);
+        alloc_list_destroy(&free_list[i]);
     }
 
     return 1;
