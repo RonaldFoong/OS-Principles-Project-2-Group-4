@@ -1,3 +1,4 @@
+#include "allocator.h"
 #include <stdio.h>
 #include <string.h>
 

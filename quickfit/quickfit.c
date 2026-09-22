@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "quickfit_lib.h"
 #include "../utils/allocator.h"
+#include "../utils/print_list.h"
 
 int main(int argc, char **argv) {
     // Parse and allocate data from datafile
@@ -13,27 +14,7 @@ int main(int argc, char **argv) {
     // Allocated chunks list
     printf("Allocated Chunks List: ");
     extern alloc_list_t allocated_chunks;
-    alloc_node_t *node = allocated_chunks.head;
-    if (node != NULL) {
-        printf(
-            "{addr: %p, total size: %zu, used size: %zu}", 
-            node->alloc->space, 
-            node->alloc->total_size, 
-            node->alloc->used_size
-        );
-        node = node->next;
-    } else {
-        printf("{}");
-    }
-    for (; node != NULL; node = node->next) {
-        printf(
-            " -> {addr: %p, total size: %zu, used size: %zu}", 
-            node->alloc->space, 
-            node->alloc->total_size, 
-            node->alloc->used_size
-        );
-    }
-    printf("\n");
+    print_alloc_list_contents(&allocated_chunks);
 
     // Free chunks lists
     printf("Free Chunks Lists:\n");
@@ -58,24 +39,13 @@ int main(int argc, char **argv) {
             case BYTES_LARGE:
                 break;
         }
+        print_free_list_contents(&free_chunks[i]);
+    }
 
-        node = free_chunks[i].head;
-        if (node != NULL) {
-            printf(
-                "{addr: %p, total size: %zu}", 
-                node->alloc->space, 
-                node->alloc->total_size
-            );
-            node = node->next;
-        }
-        for (; node != NULL; node = node->next) {
-            printf(
-                " -> {addr: %p, total size: %zu}", 
-                node->alloc->space, 
-                node->alloc->total_size
-            );
-        }
-        printf("\n");
+    // Free memory
+    alloc_list_destroy(&allocated_chunks);
+    for (list_type_t i = 0; i < PARTITIONS; i++) {
+        alloc_list_destroy(&free_chunks[i]);
     }
 
     return 1;

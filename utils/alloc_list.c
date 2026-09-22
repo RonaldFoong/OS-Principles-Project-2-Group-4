@@ -1,6 +1,6 @@
+#include "alloc_list.h"
 #include <stdlib.h>
 #include <stdbool.h>
-#include "alloc_list.h"
 
 bool push(alloc_list_t *self, allocation_t *alloc) {
     alloc_node_t *node = malloc(sizeof(alloc_node_t));
@@ -35,4 +35,15 @@ allocation_t *pop(alloc_list_t *self) {
     }
     free(node);
     return popped;
+}
+
+void alloc_list_destroy(alloc_list_t *self) {
+    alloc_node_t *node = self->head;
+    alloc_node_t *next = NULL;
+    while (node != NULL) {
+        free(node->alloc);
+        next = node->next;
+        free(node);
+        node = next;
+    }
 }

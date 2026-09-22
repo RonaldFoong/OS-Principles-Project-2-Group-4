@@ -1,3 +1,4 @@
+#include "chunk_size_of.h"
 #include <stddef.h>
 
 size_t chunk_size_of(size_t bytes) {
