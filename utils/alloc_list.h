@@ -24,5 +24,6 @@ typedef struct {
 bool push(alloc_list_t *self, allocation_t *alloc);
 allocation_t *pop(alloc_list_t *self);
 void alloc_list_destroy(alloc_list_t *self);
+allocation_t *find_and_remove(alloc_list_t *self, void *space);
 
 #endif

@@ -47,5 +47,3 @@ void alloc_list_destroy(alloc_list_t *self) {
         node = next;
     }
 }
-
-allocation_t *find_and_remove(alloc_list_t *self, void *space);
