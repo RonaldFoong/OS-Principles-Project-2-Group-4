@@ -1,3 +1,4 @@
+#define _GNU_SOURCE
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -66,6 +67,29 @@ void *alloc(size_t chunk_size) {
     new_alloc->used_size = chunk_size;
     push(&allocated_list, new_alloc);
     return space;
+}
+
+void print_lists(void) {
+    alloc_node_t *node;
+
+    printf("Allocated:\n");
+    node = allocated_list.head;
+    while (node != NULL) {
+        printf("address: %p, used: %zu, total: %zu\n",
+               node->alloc->space,
+               node->alloc->used_size,
+               node->alloc->total_size);
+        node = node->next;
+    }
+
+    printf("Free:\n");
+    node = free_list.head;
+    while (node != NULL) {
+        printf("address: %p, total: %zu\n",
+               node->alloc->space,
+               node->alloc->total_size);
+        node = node->next;
+    }
 }
 
 void dealloc(void *chunk) {
