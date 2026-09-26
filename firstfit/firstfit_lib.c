@@ -1,4 +1,5 @@
 #include <stddef.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include "../utils/alloc_list.h"
@@ -68,5 +69,12 @@ void *alloc(size_t chunk_size) {
 }
 
 void dealloc(void *chunk) {
+    allocation_t *alloc = find_and_remove(&allocated_list, chunk);
 
+    if (alloc == NULL) {
+        fprintf(stderr, "Invalid chunk\n");
+        exit(EXIT_FAILURE);
+    }
+
+    push(&free_list, alloc);
 }
