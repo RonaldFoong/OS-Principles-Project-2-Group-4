@@ -6,5 +6,6 @@
 
 void *alloc(size_t chunk_size);
 void dealloc(void *chunk);
+void print_lists(void);
 
 #endif

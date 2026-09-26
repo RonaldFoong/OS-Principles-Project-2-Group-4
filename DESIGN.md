@@ -99,9 +99,42 @@ Requests larger than 512 bytes cannot be served.
 
 ## `dealloc()` Algorithm
 
-1. Search the allocated list for a node whose `space` matches the given pointer
-2. **If found:** remove it from the allocated list, add it to the free list
-3. **If not found:** print an error to `stderr` and terminate the program (`exit(1)`)
+`dealloc()` uses a helper function `find_and_remove()` from `utils/alloc_list.c` to search and remove in one step.
+
+### First fit and Best fit
+
+```
+1. Call find_and_remove(&allocated_list, chunk)
+   - Walks the allocated list looking for a node where alloc->space == chunk
+   - If found: unlinks the node, frees the alloc_node_t, returns the allocation_t*
+   - If not found: returns NULL
+2. If NULL → print error to stderr, call exit(EXIT_FAILURE)
+3. If found → push the allocation_t onto the single free_list
+```
+
+### Quick fit
+
+Same as above except step 3 uses the correct free list by index:
+
+```
+3. idx = get_free_list_index(alloc->total_size)
+   push the allocation_t onto free_list[idx]
+```
+
+This works because `total_size` is always one of the five fixed partition sizes, so the index is always valid.
+
+### `find_and_remove()` implementation (`utils/alloc_list.c`)
+
+```
+1. Walk the list from head
+2. Compare each node->alloc->space against the target address
+3. If found:
+   - Patch node->prev->next and node->next->prev to skip this node
+   - Update head/tail if needed
+   - free(node)
+   - Return the allocation_t*
+4. If not found: return NULL
+```
 
 ---
 
