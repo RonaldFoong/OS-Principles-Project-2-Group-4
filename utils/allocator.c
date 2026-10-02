@@ -46,10 +46,6 @@ int allocator(int argc, char **argv, const char *program_name) {
                 return 1;
             }
             alloc_stack[sp++] = alloc(chunk_size);
-        } else {
-            fprintf(stderr, "Error: Could not read file %s\n", argv[1]);
-            fclose(fp);
-            return 1;
         }
     }
     if (ferror(fp)) {
