@@ -59,7 +59,8 @@ Allocates and deallocates chunks of memory according to instructions in the data
 **Example:**
 
 ```bash
-./bin/firsfit datafile.txt
+./p2_gen.sh 20 > datafile
+./bin/firsfit datafile
 ```
 
 ---
