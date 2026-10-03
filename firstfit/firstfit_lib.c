@@ -50,3 +50,41 @@ void* alloc(size_t chunk_size)
 
     return chunk->space;
 }
+
+void dealloc(void* chunk)
+{
+    alloc_node_t* node = alloc_list_find(&allocated_list, chunk);
+
+    if(node == NULL)
+    {
+        fprintf(stderr, "Fatal error: %p was never allocated\n", chunk);
+        free_records();
+        exit(EXIT_FAILURE);
+    }
+
+    allocation_t* record = alloc_list_remove(&allocated_list, node);
+
+    record->used_size = 0;
+
+    if(!push(&free_list, record))
+    {
+        fprintf(stderr, "Error: out of memory\n");
+        exit(EXIT_FAILURE);
+    }
+
+}
+
+void print_memory(void)
+{
+    printf("Allocated list:\n");
+    alloc_list_print(&allocated_list, true);
+
+    printf("Free list:\n");
+    alloc_list_print(&free_list, false);
+}
+
+void free_records(void)
+{
+    alloc_list_destroy(&allocated_list);
+    alloc_list_destroy(&free_list);
+}

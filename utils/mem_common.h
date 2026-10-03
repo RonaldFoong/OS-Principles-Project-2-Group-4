@@ -13,4 +13,10 @@ int partition_index(size_t size);
 allocation_t* new_chunk(size_t total_size);
 
 void* alloc(size_t chunk_size);
+
+void dealloc(void* chunk);
+
+void print_memory(void);
+
+void free_records(void);
 #endif

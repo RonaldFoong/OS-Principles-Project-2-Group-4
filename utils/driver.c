@@ -4,6 +4,8 @@
 #include "mem_common.h"
 #include <string.h>
 
+#define MAX_CHUNKS 10000
+
 int run_simulation(int argc, char *argv[], const char *strategy_name){
 
     if(argc != 2)
@@ -22,6 +24,7 @@ int run_simulation(int argc, char *argv[], const char *strategy_name){
 
     printf("File opened successfully\n");
 
+    static void* stack[MAX_CHUNKS];
     int count = 0;
     char line[100];
     size_t size;
@@ -31,17 +34,20 @@ int run_simulation(int argc, char *argv[], const char *strategy_name){
         {
             printf("Allocation request: %zu\n", size);
 
-            int index = partition_index(size);
-            if(index == -1)
+            if(count == MAX_CHUNKS)
             {
-                printf("No fitting partition\n");
-            }
-            else{
-                printf("Selected partition: %zu bytes\n", PARTITION_SIZES[index]);
+                fprintf(stderr, "Error: too many chunks in use\n");
+                break;
             }
 
-            count++;
-            printf("Active allocations: %d\n", count);
+            void* chunk = alloc(size);
+
+            if(chunk != NULL)
+            {
+                stack[count] = chunk;
+                count++;
+                printf("Active allocations: %d\n", count);
+            }
         }
         else if(strncmp(line, "dealloc", strlen("dealloc")) == 0)
         {
@@ -50,6 +56,7 @@ int run_simulation(int argc, char *argv[], const char *strategy_name){
             if(count > 0)
             {
                 count--;
+                dealloc(stack[count]);
                 printf("Active allocations: %d\n", count);
             }
             else{
@@ -64,10 +71,9 @@ int run_simulation(int argc, char *argv[], const char *strategy_name){
 
     fclose(file);
 
-    printf("Program: %s\n", argv[0]);
-    printf("Input file: %s\n", argv[1]);
-    printf("Strategy: %s\n", strategy_name);
-
+    printf("=== %s ===\n", strategy_name);
+    print_memory();
+    free_records();
 
     return EXIT_SUCCESS;
 }
