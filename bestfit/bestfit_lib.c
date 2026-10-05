@@ -1,3 +1,4 @@
+#define _DEFAULT_SOURCE
 #include "bestfit_lib.h"
 #include <stdbool.h>
 #include <unistd.h>

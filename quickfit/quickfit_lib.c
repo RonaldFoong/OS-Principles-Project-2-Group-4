@@ -1,3 +1,4 @@
+#define _DEFAULT_SOURCE
 #include "quickfit_lib.h"
 #include <stdbool.h>
 #include <unistd.h>
@@ -5,8 +6,6 @@
 #include <stdio.h>
 #include "../utils/alloc_list.h"
 #include "../utils/chunk_size_of.h"
-
-
 
 void *alloc(size_t chunk_size) {
     list_type_t list_type = get_list_type(chunk_size);
