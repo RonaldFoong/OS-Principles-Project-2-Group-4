@@ -1,4 +1,4 @@
-#define _DEFAULT_SOURCE
+#define _GNU_SOURCE
 #include "quickfit_lib.h"
 #include <stdbool.h>
 #include <unistd.h>

@@ -1,4 +1,4 @@
-#define _DEFAULT_SOURCE
+#define _GNU_SOURCE
 #include "bestfit_lib.h"
 #include <stdbool.h>
 #include <unistd.h>
