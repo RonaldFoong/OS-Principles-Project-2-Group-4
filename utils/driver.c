@@ -22,7 +22,7 @@ int run_simulation(int argc, char *argv[], const char *strategy_name){
         return EXIT_FAILURE;
     }
 
-    printf("File opened successfully\n");
+    //printf("File opened successfully\n");
 
     static void* stack[MAX_CHUNKS];
     int count = 0;
@@ -32,7 +32,7 @@ int run_simulation(int argc, char *argv[], const char *strategy_name){
     {
         if(sscanf(line, "alloc: %zu", &size)==1)
         {
-            printf("Allocation request: %zu\n", size);
+            //printf("Allocation request: %zu\n", size);
 
             if(count == MAX_CHUNKS)
             {
@@ -46,18 +46,18 @@ int run_simulation(int argc, char *argv[], const char *strategy_name){
             {
                 stack[count] = chunk;
                 count++;
-                printf("Active allocations: %d\n", count);
+                //printf("Active allocations: %d\n", count);
             }
         }
         else if(strncmp(line, "dealloc", strlen("dealloc")) == 0)
         {
-            printf("Deallocation request\n");
+            //printf("Deallocation request\n");
             
             if(count > 0)
             {
                 count--;
                 dealloc(stack[count]);
-                printf("Active allocations: %d\n", count);
+               // printf("Active allocations: %d\n", count);
             }
             else{
                 fprintf(stderr, "Warning: dealloc with nothing allocated\n");
@@ -65,7 +65,7 @@ int run_simulation(int argc, char *argv[], const char *strategy_name){
         }
         else
         {
-            printf("Not an allocation: %s", line);
+           // printf("Not an allocation: %s", line);
         }
     }
 

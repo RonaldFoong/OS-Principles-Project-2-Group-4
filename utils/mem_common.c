@@ -1,4 +1,5 @@
-#define _DEFAULT_SOURCE
+//#define _DEFAULT_SOURCE
+#define _GNU_SOURCE
 
 #include "mem_common.h"
 #include <stdio.h>
